@@ -104,3 +104,4 @@ local.properties
 # Gradle Wrapper
 ######################
 !gradle/wrapper/gradle-wrapper.jar
+/.apt_generated/
