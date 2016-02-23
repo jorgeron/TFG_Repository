@@ -1,0 +1,13 @@
+jhipster-dev-mysql:
+  container_name: TFGProject-dev-mysql
+  image: mysql
+  # volumes:
+  # - ~/volumes/jhipster/TFGProject/dev-mysql/:/var/lib/mysql/
+  environment:
+  - MYSQL_USER=root
+  - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+  - MYSQL_DATABASE=tfgproject
+  ports:
+  - "3306:3306"
+  command: mysqld --lower_case_table_name=1
+
