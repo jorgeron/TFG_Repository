@@ -64,13 +64,16 @@ public class AccountResource {
                     User user = userService.createUserInformation(userDTO.getLogin(), userDTO.getPassword(),
                     userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail().toLowerCase(),
                     userDTO.getLangKey());
-                    String baseUrl = request.getScheme() + // "http"
-                    "://" +                                // "://"
-                    request.getServerName() +              // "myhost"
-                    ":" +                                  // ":"
-                    request.getServerPort();               // "80"
-
-                    mailService.sendActivationEmail(user, baseUrl);
+//                    String baseUrl = request.getScheme() + // "http"
+//                    "://" +                                // "://"
+//                    request.getServerName() +              // "myhost"
+//                    ":" +                                  // ":"
+//                    request.getServerPort();               // "80"
+//
+//                    mailService.sendActivationEmail(user, baseUrl);
+                    //La siguiente linea la he metido para activar el usuario automaticamente al registrarlo,
+                    //sin necesidad de mandar el correo
+                    userService.activateRegistration(user.getActivationKey());
                     return new ResponseEntity<>(HttpStatus.CREATED);
                 })
         );
