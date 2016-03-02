@@ -109,6 +109,9 @@ public class UserResource {
                 user.setLangKey(managedUserDTO.getLangKey());
                 Set<Authority> authorities = user.getAuthorities();
                 authorities.clear();
+                user.setProvince(managedUserDTO.getProvince());
+                user.setPostalCode(managedUserDTO.getPostalCode());
+                user.setBirthDate(managedUserDTO.getBirthDate());
                 managedUserDTO.getAuthorities().stream().forEach(
                     authority -> authorities.add(authorityRepository.findOne(authority))
                 );

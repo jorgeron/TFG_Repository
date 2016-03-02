@@ -1,13 +1,17 @@
 package com.us.tfg.web.rest.dto;
 
-import com.us.tfg.domain.Authority;
-import com.us.tfg.domain.User;
+import java.util.Calendar;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 
-import javax.validation.constraints.*;
-import java.util.Set;
-import java.util.stream.Collectors;
+import com.us.tfg.domain.Authority;
+import com.us.tfg.domain.User;
 /**
  * A DTO representing a user, with his authorities.
  */
@@ -41,6 +45,14 @@ public class UserDTO {
     private String langKey;
 
     private Set<String> authorities;
+    
+    private String province;
+    
+    @Size(min = 5, max = 5)
+    @Pattern(regexp = "[0-9]{5}")
+    private String postalCode;
+    
+    private Calendar birthDate;
 
     public UserDTO() {
     }
@@ -49,11 +61,13 @@ public class UserDTO {
         this(user.getLogin(), null, user.getFirstName(), user.getLastName(),
             user.getEmail(), user.getActivated(), user.getLangKey(),
             user.getAuthorities().stream().map(Authority::getName)
-                .collect(Collectors.toSet()));
+                .collect(Collectors.toSet()), user.getProvince(), user.getPostalCode(),
+                user.getBirthDate());
     }
 
     public UserDTO(String login, String password, String firstName, String lastName,
-        String email, boolean activated, String langKey, Set<String> authorities) {
+        String email, boolean activated, String langKey, Set<String> authorities, String province,
+        String postalCode, Calendar birthDate) {
 
         this.login = login;
         this.password = password;
@@ -63,6 +77,9 @@ public class UserDTO {
         this.activated = activated;
         this.langKey = langKey;
         this.authorities = authorities;
+        this.province = province;
+        this.postalCode = postalCode;
+        this.birthDate = birthDate;
     }
 
     public String getPassword() {
@@ -96,8 +113,22 @@ public class UserDTO {
     public Set<String> getAuthorities() {
         return authorities;
     }
+    
+    
 
-    @Override
+    public String getProvince() {
+		return province;
+	}
+
+	public String getPostalCode() {
+		return postalCode;
+	}
+
+	public Calendar getBirthDate() {
+		return birthDate;
+	}
+
+	@Override
     public String toString() {
         return "UserDTO{" +
             "login='" + login + '\'' +
@@ -107,7 +138,10 @@ public class UserDTO {
             ", email='" + email + '\'' +
             ", activated=" + activated +
             ", langKey='" + langKey + '\'' +
-            ", authorities=" + authorities +
+            ", authorities=" + authorities + '\'' +
+            ", province='" + province + '\'' +
+            ", postalCode='" + postalCode + '\'' +
+            ", birthDate='" + birthDate + '\'' +
             "}";
     }
 }

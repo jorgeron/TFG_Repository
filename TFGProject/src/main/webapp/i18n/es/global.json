@@ -40,6 +40,12 @@
             "confirmpassword.placeholder": "Confirmación de la nueva contraseña",
             "email": "Correo electrónico",
             "email.placeholder": "Su correo electrónico"
+            "province": "Provincia",
+            "province.placeholder": "Seleccione su provincia",
+            "postalCode": "Código postal",
+            "postalCode.placeholder": "Seleccione su código postal",
+            "birthDate": "Fecha de nacimiento",
+            "birthDate.placeholder": "Seleccione su fecha de nacimiento"
         },
         "messages": {
             "info": {

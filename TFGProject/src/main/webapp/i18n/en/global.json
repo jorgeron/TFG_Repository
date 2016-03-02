@@ -39,7 +39,13 @@
             "confirmpassword": "New password confirmation",
             "confirmpassword.placeholder": "Confirm the new password",
             "email": "E-mail",
-            "email.placeholder": "Your e-mail"
+            "email.placeholder": "Your e-mail",
+            "province": "Province",
+            "province.placeholder": "Select province",
+            "postalCode": "Postal code",
+            "postalCode.placeholder": "Select your postal code",
+            "birthDate": "Birth date",
+            "birthDate.placeholder": "Select your birth date"
         },
         "messages": {
             "info": {

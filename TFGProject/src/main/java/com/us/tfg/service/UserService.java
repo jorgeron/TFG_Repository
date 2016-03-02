@@ -1,15 +1,15 @@
 package com.us.tfg.service;
 
-import com.us.tfg.domain.Authority;
-import com.us.tfg.domain.PersistentToken;
-import com.us.tfg.domain.User;
-import com.us.tfg.repository.AuthorityRepository;
-import com.us.tfg.repository.PersistentTokenRepository;
-import com.us.tfg.repository.UserRepository;
-import com.us.tfg.security.SecurityUtils;
-import com.us.tfg.service.util.RandomUtil;
-import java.time.ZonedDateTime;
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.util.Calendar;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
+import javax.inject.Inject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -17,8 +17,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.inject.Inject;
-import java.util.*;
+import com.us.tfg.domain.Authority;
+import com.us.tfg.domain.User;
+import com.us.tfg.repository.AuthorityRepository;
+import com.us.tfg.repository.PersistentTokenRepository;
+import com.us.tfg.repository.UserRepository;
+import com.us.tfg.security.SecurityUtils;
+import com.us.tfg.service.util.RandomUtil;
 
 /**
  * Service class for managing users.
@@ -84,7 +89,7 @@ public class UserService {
     }
 
     public User createUserInformation(String login, String password, String firstName, String lastName, String email,
-        String langKey) {
+        String langKey, String province, String postalCode, Calendar birthDate) {
 
         User newUser = new User();
         Authority authority = authorityRepository.findOne("ROLE_USER");
@@ -103,17 +108,24 @@ public class UserService {
         newUser.setActivationKey(RandomUtil.generateActivationKey());
         authorities.add(authority);
         newUser.setAuthorities(authorities);
+        
+        newUser.setProvince(province);
+        newUser.setPostalCode(postalCode);
+        newUser.setBirthDate(birthDate);
+        
         userRepository.save(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;
     }
 
-    public void updateUserInformation(String firstName, String lastName, String email, String langKey) {
+    public void updateUserInformation(String firstName, String lastName, String email, String langKey, String province, String postalCode) {
         userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).ifPresent(u -> {
             u.setFirstName(firstName);
             u.setLastName(lastName);
             u.setEmail(email);
             u.setLangKey(langKey);
+            u.setProvince(province);
+            u.setPostalCode(postalCode);
             userRepository.save(u);
             log.debug("Changed Information for User: {}", u);
         });
