@@ -49,6 +49,12 @@
             </column>
             <column name="last_modified_by" type="varchar(50)"/>
             <column name="last_modified_date" type="timestamp"/>
+            
+            <column name="province" type="varchar(50)"/>
+            <column name="postal_code" type="varchar(5)"/>
+            <column name="birth_date" type="timestamp">
+            	<constraints nullable="true"/>
+            </column>
         </createTable>
         
         <createIndex indexName="idx_user_login"
